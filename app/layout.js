@@ -17,8 +17,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  title: "Full-Spectrum Creator | Video & Audio Portfolio",
-  description: "The Hybrid Creator for the Digital Age. Visuals. Audio. Innovation.",
+  title: "Christian Ward Films | Complete Content Solutions",
+  description: "Full-Stack Content Creation. Visuals. Audio. Innovation.",
 };
 
 export default function RootLayout({ children }) {
