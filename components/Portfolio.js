@@ -65,6 +65,7 @@ export default function Portfolio() {
                             src={selectedVideo.url}
                             controls
                             autoPlay
+                            playsInline
                             className="w-full h-full object-contain"
                         />
                         <div className="p-4 bg-gray-900 border-t border-white/10">
@@ -187,6 +188,8 @@ export default function Portfolio() {
                                                 className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                                                 muted
                                                 loop
+                                                playsInline
+                                                preload="metadata"
                                                 onMouseOver={async (e) => {
                                                     try {
                                                         await e.target.play();
