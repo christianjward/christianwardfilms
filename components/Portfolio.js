@@ -189,7 +189,7 @@ export default function Portfolio() {
                                                 muted
                                                 loop
                                                 playsInline
-                                                preload="metadata"
+                                                preload="auto"
                                                 onMouseOver={async (e) => {
                                                     try {
                                                         await e.target.play();
