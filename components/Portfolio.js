@@ -184,7 +184,7 @@ export default function Portfolio() {
                                         {/* Use a placeholder if thumbnail logic isn't built yet, or maybe just a video tag or a generic image for now since we don't have auto-thumb yet */}
                                         <div className="aspect-video bg-gray-800 flex items-center justify-center overflow-hidden">
                                             <video
-                                                src={project.url}
+                                                src={`${project.url}#t=0.001`}
                                                 className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                                                 muted
                                                 loop
