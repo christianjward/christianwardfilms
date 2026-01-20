@@ -19,6 +19,27 @@ const montserrat = Montserrat({
 export const metadata = {
   title: "Christian Ward Films | Complete Content Solutions",
   description: "Full-Stack Content Creation. Visuals. Audio. Innovation.",
+  openGraph: {
+    title: "Christian Ward Films | Complete Content Solutions",
+    description: "Full-Stack Content Creation. Visuals. Audio. Innovation.",
+    url: "https://christianward.net",
+    siteName: "Christian Ward Films",
+    images: [
+      {
+        url: "/profile.png",
+        width: 800,
+        height: 800,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Christian Ward Films",
+    description: "Full-Stack Content Creation. Visuals. Audio. Innovation.",
+    images: ["/profile.png"],
+  },
 };
 
 export default function RootLayout({ children }) {
