@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, storage, db } from "@/lib/firebase"; // Added storage, db
-import { Trash2, LogOut, Video, Music, Upload, Check } from "lucide-react"; // Import used icons
+import { Trash2, LogOut, Video, Music, Upload, Check, PenTool } from "lucide-react"; // Import used icons
+import BlogManager from "./BlogManager";
 import { collection, addDoc, serverTimestamp, deleteDoc, doc, query, orderBy, onSnapshot } from "firebase/firestore"; // Added deletion/query methods
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage"; // Added deleteObject
 
@@ -11,6 +12,7 @@ export default function AdminDashboard() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [content, setContent] = useState([]); // State for content list
+    const [activeTab, setActiveTab] = useState("portfolio"); // New tab state
     const router = useRouter();
 
     // Protect Route & Fetch Content
@@ -88,67 +90,89 @@ export default function AdminDashboard() {
                 </div>
             </header>
 
-            <main className="max-w-6xl mx-auto p-6 space-y-12">
-                {/* Upload Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* Video Upload Section */}
-                    <div className="bg-gray-900/50 border border-white/10 rounded-2xl p-6">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 bg-neon-cyan/10 rounded-lg text-neon-cyan"><Video size={24} /></div>
-                            <h2 className="text-xl font-bold">Upload Video</h2>
-                        </div>
-
-                        <FormSection type="video" />
-                    </div>
-
-                    {/* Audio Upload Section */}
-                    <div className="bg-gray-900/50 border border-white/10 rounded-2xl p-6">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 bg-electric-purple/10 rounded-lg text-electric-purple"><Music size={24} /></div>
-                            <h2 className="text-xl font-bold">Upload Audio</h2>
-                        </div>
-
-                        <FormSection type="audio" />
-                    </div>
+            <main className="max-w-6xl mx-auto p-6 space-y-8">
+                {/* Tabs */}
+                <div className="flex gap-4 border-b border-white/10 pb-4">
+                    <button
+                        onClick={() => setActiveTab("portfolio")}
+                        className={`pb-2 px-4 text-sm font-bold uppercase tracking-wider transition-all ${activeTab === 'portfolio' ? 'text-neon-cyan border-b-2 border-neon-cyan' : 'text-gray-500 hover:text-white'}`}
+                    >
+                        Portfolio
+                    </button>
+                    <button
+                        onClick={() => setActiveTab("blog")}
+                        className={`pb-2 px-4 text-sm font-bold uppercase tracking-wider transition-all ${activeTab === 'blog' ? 'text-pink-500 border-b-2 border-pink-500' : 'text-gray-500 hover:text-white'}`}
+                    >
+                        Blog Check
+                    </button>
                 </div>
 
-                {/* Content Management Section */}
-                <div>
-                    <h2 className="text-2xl font-bold mb-6 border-l-4 border-white pl-4">Manage Content</h2>
-                    <div className="bg-gray-900/30 border border-white/5 rounded-xl overflow-hidden">
-                        {content.length === 0 ? (
-                            <div className="p-8 text-center text-gray-500">No content uploaded yet.</div>
-                        ) : (
-                            <div className="divide-y divide-white/5">
-                                {content.map((item) => (
-                                    <div key={item.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors group">
-                                        <div className="flex items-center gap-4">
-                                            <div className={`p-2 rounded-lg ${item.type === 'video' ? 'bg-neon-cyan/10 text-neon-cyan' : 'bg-electric-purple/10 text-electric-purple'}`}>
-                                                {item.type === 'video' ? <Video size={20} /> : <Music size={20} />}
-                                            </div>
-                                            <div>
-                                                <h3 className="font-bold text-white">{item.title}</h3>
-                                                <div className="flex gap-2 text-xs text-gray-500">
-                                                    <span>{new Date(item.createdAt?.seconds * 1000).toLocaleDateString()}</span>
-                                                    <span>•</span>
-                                                    <span className="uppercase">{item.type}</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                {activeTab === "portfolio" ? (
+                    <div className="space-y-12">
+                        {/* Upload Section */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            {/* Video Upload Section */}
+                            <div className="bg-gray-900/50 border border-white/10 rounded-2xl p-6">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2 bg-neon-cyan/10 rounded-lg text-neon-cyan"><Video size={24} /></div>
+                                    <h2 className="text-xl font-bold">Upload Video</h2>
+                                </div>
 
-                                        <button
-                                            onClick={() => handleDelete(item)}
-                                            className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
-                                            title="Delete permanently"
-                                        >
-                                            <Trash2 size={20} />
-                                        </button>
-                                    </div>
-                                ))}
+                                <FormSection type="video" />
                             </div>
-                        )}
+
+                            {/* Audio Upload Section */}
+                            <div className="bg-gray-900/50 border border-white/10 rounded-2xl p-6">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2 bg-electric-purple/10 rounded-lg text-electric-purple"><Music size={24} /></div>
+                                    <h2 className="text-xl font-bold">Upload Audio</h2>
+                                </div>
+
+                                <FormSection type="audio" />
+                            </div>
+                        </div>
+
+                        {/* Content Management Section */}
+                        <div>
+                            <h2 className="text-2xl font-bold mb-6 border-l-4 border-white pl-4">Manage Content</h2>
+                            <div className="bg-gray-900/30 border border-white/5 rounded-xl overflow-hidden">
+                                {content.length === 0 ? (
+                                    <div className="p-8 text-center text-gray-500">No content uploaded yet.</div>
+                                ) : (
+                                    <div className="divide-y divide-white/5">
+                                        {content.map((item) => (
+                                            <div key={item.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors group">
+                                                <div className="flex items-center gap-4">
+                                                    <div className={`p-2 rounded-lg ${item.type === 'video' ? 'bg-neon-cyan/10 text-neon-cyan' : 'bg-electric-purple/10 text-electric-purple'}`}>
+                                                        {item.type === 'video' ? <Video size={20} /> : <Music size={20} />}
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-bold text-white">{item.title}</h3>
+                                                        <div className="flex gap-2 text-xs text-gray-500">
+                                                            <span>{new Date(item.createdAt?.seconds * 1000).toLocaleDateString()}</span>
+                                                            <span>•</span>
+                                                            <span className="uppercase">{item.type}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => handleDelete(item)}
+                                                    className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
+                                                    title="Delete permanently"
+                                                >
+                                                    <Trash2 size={20} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <BlogManager />
+                )}
             </main>
         </div>
     );

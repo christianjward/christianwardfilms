@@ -18,6 +18,17 @@ export default function Hero() {
                 </video>
             </div>
 
+            {/* Navigation */}
+            <nav className="absolute top-0 w-full p-6 z-50 flex justify-between items-center max-w-7xl">
+                <div className="font-montserrat font-bold text-white text-lg tracking-widest">CWF</div>
+                <a
+                    href="/blog"
+                    className="text-gray-300 hover:text-white font-bold uppercase tracking-widest text-sm border-b-2 border-transparent hover:border-pink-500 transition-all pb-1"
+                >
+                    Read Blog
+                </a>
+            </nav>
+
             {/* Decorative Gradients */}
             <div className="absolute inset-0 z-0 bg-linear-to-t from-background via-transparent to-transparent" />
             <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-neon-cyan/20 blur-[100px] rounded-full animate-pulse" />
