@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Loader2, ArrowLeft, Calendar, Share2, Check } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import ReactMarkdown from "react-markdown";
 
 export default function BlogPost() {
     const { slug } = useParams(); // Get dynamic slug
@@ -128,11 +129,8 @@ export default function BlogPost() {
                 </div>
 
                 {/* Text Content */}
-                <article className="prose prose-invert prose-lg md:prose-xl max-w-none prose-headings:font-montserrat prose-headings:text-white prose-p:text-gray-300 prose-a:text-pink-500 hover:prose-a:text-pink-400">
-                    {/* Render paragraphs simply for now */}
-                    {post.content.split('\n').map((paragraph, idx) => (
-                        paragraph.trim() && <p key={idx}>{paragraph}</p>
-                    ))}
+                <article className="prose prose-invert prose-lg md:prose-xl max-w-none prose-headings:font-montserrat prose-headings:text-white prose-p:text-gray-300 prose-a:text-pink-500 hover:prose-a:text-pink-400 prose-strong:text-white prose-blockquote:border-pink-500 prose-blockquote:text-gray-400 prose-li:text-gray-300">
+                    <ReactMarkdown>{post.content}</ReactMarkdown>
                 </article>
 
                 <hr className="border-white/10" />

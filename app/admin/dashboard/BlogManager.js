@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { db, storage } from "@/lib/firebase";
 import { collection, addDoc, deleteDoc, doc, query, orderBy, onSnapshot, serverTimestamp, updateDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
-import { Trash2, PenTool, Image as ImageIcon, Youtube, Check, RefreshCw, Upload } from "lucide-react";
+import { Trash2, PenTool, Image as ImageIcon, Youtube, Check, RefreshCw, Upload, ArrowUpRight } from "lucide-react";
 
 export default function BlogManager() {
     const [posts, setPosts] = useState([]);
@@ -161,12 +161,17 @@ export default function BlogManager() {
                     </div>
 
                     <div className="h-full">
-                        <label className="block text-xs uppercase font-bold text-gray-500 mb-1">Content</label>
+                        <div className="flex justify-between items-center mb-1">
+                            <label className="block text-xs uppercase font-bold text-gray-500">Content (Markdown Supported)</label>
+                            <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer" className="text-xs text-pink-500 hover:text-pink-400 flex items-center gap-1">
+                                Formatting Help <ArrowUpRight size={12} />
+                            </a>
+                        </div>
                         <textarea
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                            className="w-full h-64 md:h-full bg-black border border-white/10 p-3 rounded-lg focus:border-pink-500 outline-none transition-colors resize-none font-mono text-sm"
-                            placeholder="Write your story here..."
+                            className="w-full h-64 md:h-full bg-black border border-white/10 p-3 rounded-lg focus:border-pink-500 outline-none transition-colors resize-none font-mono text-sm leading-relaxed"
+                            placeholder="# Heading&#10;&#10;Write your story here... **Bold** text and *Italic* text supported."
                         />
                     </div>
                 </div>
