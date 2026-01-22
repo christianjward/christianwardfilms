@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Play, Music, Video, Loader2, X } from "lucide-react";
+import Link from "next/link";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
@@ -155,6 +156,12 @@ export default function Portfolio() {
                                 {f.charAt(0).toUpperCase() + f.slice(1)}
                             </button>
                         ))}
+                        <Link
+                            href="/blog"
+                            className="px-4 py-2 rounded-full text-sm font-medium transition-all bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white decoration-0"
+                        >
+                            Blog
+                        </Link>
                     </div>
                 </div>
 
