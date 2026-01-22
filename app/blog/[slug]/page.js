@@ -4,7 +4,7 @@ import { useParams } from "next/navigation"; // Correct hook for App Router slug
 import { collection, getDocs, query, where, limit } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { motion } from "framer-motion";
-import { Loader2, ArrowLeft, Calendar, Share2 } from "lucide-react";
+import { Loader2, ArrowLeft, Calendar, Share2, Check } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 
@@ -46,6 +46,29 @@ export default function BlogPost() {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         const match = url?.match(regExp);
         return (match && match[2].length === 11) ? match[2] : null;
+    };
+
+    // Share Logic
+    const [copied, setCopied] = useState(false);
+
+    const handleShare = async () => {
+        const shareData = {
+            title: post.title,
+            text: post.content.substring(0, 100) + "...",
+            url: window.location.href,
+        };
+
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else {
+                await navigator.clipboard.writeText(window.location.href);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            }
+        } catch (err) {
+            console.error("Error sharing:", err);
+        }
     };
 
     if (loading) return (
@@ -117,8 +140,12 @@ export default function BlogPost() {
                 {/* Share / Footer in-post */}
                 <div className="flex justify-between items-center">
                     <div className="font-montserrat font-bold text-white">Christian Ward Films</div>
-                    <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-                        <Share2 size={16} /> Share Article
+                    <button
+                        onClick={handleShare}
+                        className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                    >
+                        {copied ? <Check size={16} className="text-green-500" /> : <Share2 size={16} />}
+                        {copied ? <span className="text-green-500 font-bold">Copied!</span> : "Share Article"}
                     </button>
                 </div>
             </main>
