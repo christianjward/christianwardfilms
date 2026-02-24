@@ -1,23 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-background: #0a0a0a;
-  --color-foreground: #ededed;
+  --color-background: #5F7691;
+  --color-foreground: #FFFFFF;
 
-  --color-neon-cyan: #00f3ff;
-  --color-electric-purple: #bd00ff;
-  --color-dark-surface: #121212;
-
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
-  --font-montserrat: var(--font-montserrat), sans-serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
 }
 
-/* Force Dark Mode Default */
+/* Force Theme Default */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #5F7691;
+  --foreground: #FFFFFF;
 }
 
 body {
@@ -26,11 +22,4 @@ body {
   font-family: var(--font-sans);
   overflow-x: hidden;
   /* Prevent horizontal scroll from animations */
-}
-
-/* Custom Utilities */
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(189, 0, 255, 0.3);
-  }
 }

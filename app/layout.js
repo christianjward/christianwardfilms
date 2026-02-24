@@ -1,26 +1,10 @@
-import { Geist, Geist_Mono, Montserrat } from "next/font/google"; // Added Montserrat
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-});
-
 export const metadata = {
-  title: "Christian Ward Films | Complete Content Solutions",
+  title: "Christian Ward Films | Strategy Meets Cinematic Production",
   description: "Full-Stack Content Creation. Visuals. Audio. Innovation.",
   openGraph: {
-    title: "Christian Ward Films | Complete Content Solutions",
+    title: "Christian Ward Films | Strategy Meets Cinematic Production",
     description: "Full-Stack Content Creation. Visuals. Audio. Innovation.",
     url: "https://christianward.net",
     siteName: "Christian Ward Films",
@@ -47,7 +31,7 @@ import Script from "next/script";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} font-sans bg-background text-foreground antialiased`}>
+      <body className="font-sans antialiased">
         {children}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4CVMWZFYJL"
