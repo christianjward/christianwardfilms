@@ -6,7 +6,6 @@ import { db } from "@/lib/firebase";
 import { motion } from "framer-motion";
 import { Loader2, ArrowLeft, Calendar, Share2, Check } from "lucide-react";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 
 export default function BlogPost() {
@@ -147,8 +146,6 @@ export default function BlogPost() {
                     </button>
                 </div>
             </main>
-
-            <Footer />
         </div>
     );
 }
