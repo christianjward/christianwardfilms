@@ -42,7 +42,7 @@ export default function Home() {
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
         >
-          <source src="/strategic-narrative.mp4" type="video/mp4" />
+          <source src="/Aprilpromofinal.mp4" type="video/mp4" />
         </video>
 
         {/* Play Icon Overlay */}
